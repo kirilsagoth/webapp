@@ -1,0 +1,10 @@
+{
+  "name": "kirillr",
+  "version": "0.0.1",
+  "author": "Kiril The Great",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "jquery-validation": "~1.14.0"
+  }
+}

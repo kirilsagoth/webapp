@@ -1,6 +1,8 @@
 /* VARIABLES */
 $max-width: 1280px;
 $min-width: 640px;
+$tab-label-background: #626262;
+$caption-color:  darken(grey, 30%);
 
 /* FONT */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
@@ -9,9 +11,9 @@ html,
 body {
 	margin:0;
 	padding:0;
-	height: 100%;
 	font-family: 'Open Sans';
 	font-size: 16px;
+	height: auto;
 }
 
 * {
@@ -22,7 +24,7 @@ body {
 	background-image: url("../img/body-background.jpg");
     background-repeat: no-repeat;
 	background-size: cover;
-	background-position: relative;
+	background-position: center center;
 }
 
 header {
@@ -53,6 +55,7 @@ header {
 		height: 80px;
 		margin:0;
 		padding:0;
+		z-index: 9002;
 	}
 }
 
@@ -90,6 +93,34 @@ header {
 .content {
 	padding: 10px 20px;
 	margin-bottom: 20px;
+}
+
+.error {
+	outline: 1px red solid !important;
+}
+
+.input-style {
+	outline: none;
+	border: none;
+	padding-left: 5px;
+	padding-right: 5px;
+	
+	&:hover {
+		border: none;
+		outline: 1px solid lighten(grey, 10%);
+		outline-offset: 0;
+	}
+}
+
+.input-style-text {
+	@extend .input-style;
+	
+	&:focus {
+		border: none;
+		outline: 1px solid lighten(grey, 10%);
+		outline-offset: 0;
+	}
+	
 }
 
 .notifications {
@@ -155,6 +186,7 @@ nav {
 	height: 40px;
 	bottom: 0;
 	background-color: lightgray;
+	z-index: 9000;
 }
 
 .menu-caption {
@@ -162,10 +194,11 @@ nav {
 	padding-left: 30px;
 	padding-top: 8px;
 	padding-bottom: 8px;
+	cursor: pointer;
 	
 	
 	> p {
-		color: darken(grey, 30%);
+		color: $caption-color;
 		margin: 0;
 	}
 }
@@ -227,38 +260,39 @@ nav {
 
 .tabs { 
 	width: 100%;
-	margin-top: 20px;
+	margin-top: 30px;
 	min-height: 500px;
 }
 
-input { 
+input[name="tab"] { 
   display: none;
 }
 
 .tab-link {
-	text-transform: uppercase;
-	font-size: 10px;
-	cursor: pointer;
-	color: #555;
-	font-weight: bold;
-	text-decoration: none;
+	position: relative;
 	display: block;
 	float: left;
-	width: 55px;
-	padding: 5px 0;
+	width: 23.5%;
+	font-size: 1rem;
+	cursor: pointer;
+	color: #fff;
+	font-weight: normal;
+	text-decoration: none;
+	padding: 15px 0;
 	text-align: center;
-	background: #ccc;
-	border: 1px solid #bbb;
-	border-left: 0;
-	border-bottom: 0;
+	background: $tab-label-background;
+	z-index: 1;
 	
-	&:focus {
-		background: #eee;
-		color: #666;
+	&:hover {
+		background: darken($tab-label-background, 10%);
 	}
 	
-	&:nth-of-type(1) {
-		border-left: 1px solid #bbb;
+	+ .tab-link {
+		margin-left: 2%;
+	}
+	
+	&:focus {
+		outline: none;
 	}
 	
 }
@@ -266,10 +300,19 @@ input {
 .tab {
 	clear: both;
 	background: #ddd;
-	padding: 25px;
+	padding: 20px;
 	display: none;
-	height: 180px;
-	border: 1px solid #bbb;
+	height: auto;
+	width: 100%;
+	min-height: 660px;
+	
+	iframe {
+		width: 100%;
+		height: 640px;
+		border: none;
+		margin-top: 15px;
+		position: relative;
+	}
 }
 
 .target-fix {
@@ -277,28 +320,163 @@ input {
 	top: 0;
 	left: 0;
 	position: fixed;
-}
+} 
 
 /* ON FOCUS  */
-.tab-link:focus:after,
-#tab-public-folders:checked ~ label:nth-of-type(4):after,
-#tab-my-team-folders:checked ~ label:nth-of-type(3):after,
-#tab-my-folders:checked ~ label:nth-of-type(2):after,
-#tab-my-folders:not(:checked) ~ #tab-my-team-folders:not(:checked) ~ label:nth-of-type(1):after {
-	position: absolute;
-	content: "";
-	margin: 5px 0 0 0;
-	width: 55px;
-	height: 1px;
-	display: block;
-	background: #ddd;
+.tab-link:focus,
+#tab-public-folders:checked ~ label:nth-of-type(4),
+#tab-my-team-folders:checked ~ label:nth-of-type(3),
+#tab-my-folders:checked ~ label:nth-of-type(2),
+#tab-my-folders:not(:checked) ~ #tab-my-team-folders:not(:checked) ~ #tab-public-folders:not(:checked) ~ label:nth-of-type(1) {
+	color: $caption-color;
+	
+	&:before {
+		display: block;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		content: "";
+		background: #ddd;
+		z-index: -1;
+	}
 }
 
 .tabs {
-	 input:nth-of-type(2):not(:checked) ~ input:nth-of-type(3):not(:checked) ~ .tab:nth-of-type(1),
+	 input:nth-of-type(2):not(:checked) ~ input:nth-of-type(3):not(:checked) ~ input:nth-of-type(4):not(:checked) ~ .tab:nth-of-type(1),
 	 input:nth-of-type(2):checked ~ .tab:nth-of-type(2),
-	 input:nth-of-type(3):checked ~ .tab:nth-of-type(3) 
+	 input:nth-of-type(3):checked ~ .tab:nth-of-type(3),
+	 input:nth-of-type(4):checked ~ .tab:nth-of-type(4) 
 	{
 	  display: block;
+	}
+}
+
+/* TAB ACTION BAR */
+
+.action-bar {
+	@include clearfix;
+	position: relative;
+
+	.iframe-selector {
+		width: 260px;
+		padding: 5px;
+		float: left;
+	}
+	
+	> a {
+		display: block;
+		float: right;
+		padding: 10px;
+		
+		&:hover {
+			background: #fff;
+		}
+	}
+	
+	.go-to-page {
+		padding-left: 12px;
+		padding-right: 12px;
+		padding-bottom: 12px;
+	}
+	
+	.options {
+		padding-bottom: 9px;
+	}
+}
+
+.option-dropdown {
+	display: none;
+	position: absolute;
+	width: 100%;
+	background: #fff;
+	top: 100%;
+	z-index: 9000;
+	
+	form {
+		margin: 20px;
+	}
+	
+	fieldset {
+		display: block;
+		background: #ddd;
+		padding: 10px 20px;
+		
+		+ fieldset {
+			margin-top: 10px;
+		}
+		
+		.input-wrapper {
+			display: inline-block;
+			width: 37%;
+			
+			input {
+				margin-left: 10px;
+				width: 70%;
+				height: 2rem;
+			}
+			
+			+ .input-wrapper {
+				margin-left: 30px;
+			}
+		}
+	}
+	
+	.field-name {
+		display: inline-block;
+		margin-right: 60px;
+		width: 10%;
+	}
+	
+	.form-options {
+		float: right;
+		width: auto;
+		margin-top: 10px;
+	
+		.submit {
+			display: inline-block;
+			background: lighten(#000, 10%);
+			color: #fff;
+			border: none;
+			padding: 6px 30px;
+			margin-left: 8px;
+			
+			&:hover {
+				background: #000;
+			}
+		}
+		
+		.cancel {
+			display: inline-block;
+			padding-top: 5px;
+			padding-bottom: 15px;
+		}
+	}
+	
+	@media only screen and (max-width: 875px) {
+		.field-name {
+			display: block;
+			margin-bottom: 20px;
+			width: 100%;
+		}
+		
+		fieldset {
+			.input-wrapper {
+				display: block;
+				width: 100%;
+				
+				label {
+					display: inline-block;
+					width: 12%;
+				}
+				
+				+ .input-wrapper {
+					margin-left:0;
+					margin-top: 20px;
+				}
+			}
+		}
+
 	}
 }

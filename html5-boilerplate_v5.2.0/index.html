@@ -7,7 +7,9 @@
 
 	<title>WebApp</title>
 
-	<link rel="stylesheet" href="css/scripts.css">
+	<!-- bower:css -->
+	<!-- endbower -->
+	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 	<header>
@@ -41,9 +43,9 @@
 						</div>
 
 						<ul class="action-list">
-							<li><a href="#">Corporate</a></li>
-							<li><a href="#">Simple</a></li>
-							<li><a href="#">Business</a></li>
+							<li><a href="http://arvut.org.il">Corporate</a></li>
+							<li><a href="http://arvut.org.il">Simple</a></li>
+							<li><a href="http://arvut.org.il">Business</a></li>
 						</ul>
 					</div>
 				</div>
@@ -58,10 +60,10 @@
 						</div>
 
 						<ul class="action-list">
-							<li><a href="#">Account Dashborad</a></li>
-							<li><a href="#">Daily Huddle Dashboard</a></li>
-							<li><a href="#">Tier 2 Dashboard</a></li>
-							<li><a href="#">ADM Dashboard</a></li>
+							<li><a href="http://arvut.org.il">Account Dashborad</a></li>
+							<li><a href="http://arvut.org.il">Daily Huddle Dashboard</a></li>
+							<li><a href="http://arvut.org.il">Tier 2 Dashboard</a></li>
+							<li><a href="http://arvut.org.il">ADM Dashboard</a></li>
 						</ul>
 					</div>
 				</div>
@@ -76,14 +78,14 @@
 						</div>
 
 						<ul class="action-list">
-							<li><a href="#">Real Time</a></li>
-							<li><a href="#">Past Data</a></li>
-							<li><a href="#">Corporate Data</a></li>
+							<li><a href="http://arvut.org.il">Real Time</a></li>
+							<li><a href="http://arvut.org.il">Past Data</a></li>
+							<li><a href="http://arvut.org.il">Corporate Data</a></li>
 						</ul>
 					</div>
 				</div>
 			</nav>
-
+			
 			<section class="tabs">
 			
 				<input type="radio" name="tab" id="tab-quick-reports">
@@ -95,25 +97,160 @@
 				<label class="tab-link" for="tab-my-team-folders">My Team Folders</label>
 				<label class="tab-link" for="tab-public-folders">Public Folders</label>
 
-				<article class="tab" id="quick-reports">
-				<h3>11111111</h3>
+				<article class="tab" id="quick-reports" data-interactive-tab="reports">
+					<div id="quick-reports" class="action-bar">
+						<select class="iframe-selector input-style">
+						</select>
+						<a class="options" href="#" data-dropdown data-target="#quick-report-options"><img src="img/icons/settings.png">
+						</a>
+						<a class="go-to-page" href="#" target="_blank"><img src="img/icons/expand.png">
+						</a>
+						<div id="quick-report-options" class="option-dropdown">
+							<form name="report-form">
+								<fieldset name="folder_01">
+									<span class="field-name">Folder 01</span>
+									<div class="input-wrapper">
+										<label>
+											Name:
+										</label>
+										<input type="text" name="name01" class="input-style-text">
+									</div>
+									<div class="input-wrapper">
+										<label>
+											Url:
+										</label>
+										<input type="text" name="url01" class="input-style-text urlValidator" placeholder="http://...">
+									</div>
+								</fieldset>
+								<fieldset name="folder_02">
+									<span class="field-name">Folder 02</span>
+									<div class="input-wrapper">
+										<label>
+											Name:
+										</label>
+										<input type="text" name="name02" class="input-style-text">
+									</div>
+									<div class="input-wrapper">
+										<label>
+											Url:
+										</label>
+										<input type="text" name="url02" class="input-style-text urlValidator" placeholder="http://...">
+									</div>
+								</fieldset>
+								<fieldset name="folder_03">
+									<span class="field-name">Folder 03</span>
+									<div class="input-wrapper">
+										<label>
+											Name:
+										</label>
+										<input type="text" name="name03" class="input-style-text">
+									</div>
+									<div class="input-wrapper">
+										<label>
+											Url:
+										</label>
+										<input type="text" name="url03" class="input-style-text urlValidator" placeholder="http://...">
+									</div>
+								</fieldset>
+								<div class="form-options">
+									<a href="#" class="cancel">Cancel</a>
+									<button type="submit" class="submit">SAVE</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<iframe></iframe>
 				</article>
 
 				<article class="tab" id="my-folders">
-				<h3>222222222</h3>
+					<div id="my-folders" class="action-bar">
+						<a class="go-to-page" href="http://www.paulirish.com/" target="_blank"><img src="img/icons/expand.png">
+						</a>
+					</div>
+					<iframe src="http://www.paulirish.com/"></iframe>
 				</article>
 
-				<article class="tab" id="my-team-folders">
-				<h3>333333333</h3>
+				<article class="tab" id="my-team-folders" data-interactive-tab="folders">
+					<div id="my-team-folders" class="action-bar">
+						<select class="iframe-selector input-style">
+						</select>
+						<a class="options" href="#" data-dropdown data-target="#my-team-folders-options"><img src="img/icons/settings.png">
+						</a>
+						<a class="go-to-page" href="#" target="_blank"><img src="img/icons/expand.png">
+						</a>
+						<div id="my-team-folders-options" class="option-dropdown">
+							<form name="folder-form">
+								<fieldset name="report_01">
+									<span class="field-name">Report 01</span>
+									<div class="input-wrapper">
+										<label>
+											Name:
+										</label>
+										<input type="text" name="name01" class="input-style-text">
+									</div>
+									<div class="input-wrapper">
+										<label>
+											Url:
+										</label>
+										<input type="text" name="url01" class="input-style-text urlValidator" placeholder="http://...">
+									</div>
+								</fieldset>
+								<fieldset name="report_02">
+									<span class="field-name">Report 02</span>
+									<div class="input-wrapper">
+										<label>
+											Name:
+										</label>
+										<input type="text" name="name02" class="input-style-text">
+									</div>
+									<div class="input-wrapper">
+										<label>
+											Url:
+										</label>
+										<input type="text" name="url02" class="input-style-text urlValidator"  placeholder="http://...">
+									</div>
+								</fieldset>
+								<fieldset name="report_03">
+									<span class="field-name">Report 03</span>
+									<div class="input-wrapper">
+										<label>
+											Name:
+										</label>
+										<input type="text" name="name03" class="input-style-text">
+									</div>
+									<div class="input-wrapper">
+										<label>
+											Url:
+										</label>
+										<input type="text" name="url03" class="input-style-text urlValidator" placeholder="http://...">
+									</div>
+								</fieldset>
+								<div class="form-options">
+									<a href="#" class="cancel">Cancel</a>
+									<button type="submit" class="submit">SAVE</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<iframe></iframe>
 				</article>
 
 				<article class="tab" id="public-folders">
-				<h3>444444444</h3>
+					<div id="public-folders" class="action-bar">
+						<a class="go-to-page" href="http://addyosmani.com/" target="_blank"><img src="img/icons/expand.png">
+						</a>
+					</div>
+					<iframe src="http://addyosmani.com/"></iframe>
 				</article>
 			</section>
 		</div>
 	</section>
 
+	<!-- bower:js -->
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/jquery-validation/dist/jquery.validate.js"></script>
+	<!-- endbower -->
+	<script src="js/plugins.js"></script>
 	<script src="js/main.js"></script>
 </body>
 </html>
