@@ -47,7 +47,8 @@ var UIUtility = (function ($){
 		init: init,
 		refreshTabsUI: refreshTabsUI,
 		hideDropdown: hideDropdown,
-		showDropdown: showDropdown
+		showDropdown: showDropdown,
+		httpPref: httpPref
 	};
 	
 	function init() {
@@ -71,6 +72,11 @@ var UIUtility = (function ($){
 		
 		activateOptionDropdowns();
 	}
+	
+	function httpPref() {
+		
+		 
+	}	
 	
 	function showDropdown($toggler, $target) {
 		$target.show();
@@ -121,17 +127,18 @@ var UIUtility = (function ($){
 			
 			var fieldSets = $this.find('fieldset');
 			
-			
 			// if we have data stored
 			if (data && data.length) {
-				var reversed = [].concat(data).reverse();
-				
+				var reversed = [].concat(data);
+				var pref = "http://";
+				var pattern = /^((http|https|ftp):\/\/)/;
+	
 				if (!fromSelect) {
 					$iframeSelector.empty();
 					for (var i = 0; i < reversed.length; ++i) {
-						
 						// load into the select
 						var $option = $('<option></option>');
+						
 						$option.addClass('iframe-option');
 						if (i == 0) {
 							$option.prop('selected' , true);
@@ -148,11 +155,22 @@ var UIUtility = (function ($){
 						$gotoPageBtn.attr('href', reversed[0].url);
 				
 						$this.find('iframe').attr('src', reversed[0].url);
+						
+						var url = $this.find('iframe').attr('src');						
+						if(!pattern.test(url)) {
+							url = pref + url; 
+							$this.find('iframe').attr('src', url);
+						}
 					}
 				} else { // changed from the iframe selector
-					$gotoPageBtn.attr('href', $iframeSelector.val());
-				
-					$this.find('iframe').attr('src', $iframeSelector.val());
+					var url = $iframeSelector.val();						
+					if(!pattern.test(url)) {
+						url = pref + url; 
+					}	
+					
+					$gotoPageBtn.attr('href', url);
+					
+					$this.find('iframe').attr('src', url);
 				}
 				
 				$iframeSelector.show();
@@ -174,7 +192,7 @@ var FormUtility = (function ($) {
 	
 	$.validator.addMethod('urlValidator', function(value, element) {
 		var $element = $(element);
-		var urlRegex = new RegExp("(http|ftp|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?");
+		var urlRegex = new RegExp("^http:\/\/|(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$");
 		
 		return (this.optional(element) || urlRegex.test(value));
 	});
@@ -218,8 +236,10 @@ var FormUtility = (function ($) {
 					var values = $this.serializeArray();
 					var id = 1;
 					var linkValues = [];
+					
 					for (var i = 0; i < values.length; ++i) {
 						var dataObject = {};
+						var tmpValue = values[i].value;
 						
 						if (values[i].name === ('name0'+id) && values[i].value !== '') {
 							dataObject.name = values[i].value;
