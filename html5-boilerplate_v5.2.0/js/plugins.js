@@ -48,7 +48,6 @@ var UIUtility = (function ($){
 		refreshTabsUI: refreshTabsUI,
 		hideDropdown: hideDropdown,
 		showDropdown: showDropdown,
-		httpPref: httpPref
 	};
 	
 	function init() {
@@ -72,11 +71,6 @@ var UIUtility = (function ($){
 		
 		activateOptionDropdowns();
 	}
-	
-	function httpPref() {
-		
-		 
-	}	
 	
 	function showDropdown($toggler, $target) {
 		$target.show();
